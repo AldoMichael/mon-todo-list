@@ -8,7 +8,9 @@
     <ul v-for="(todoList, index) in todoLists" :key="index">
       <li>
         <input type="checkbox" v-model="todoList.completed" :id="'check-' + index" @click="Completed(index)">
-            <span :class="{barre: todoList.completed}">{{todoList}}</span>
+            <span :class="{barre: todoList.completed}"> Titre :{{todoList.title}}</span>
+            <span :class="{barre: todoList.completed}"> Status :{{todoList.completed}}</span>
+            <span :class="{barre: todoList.completed}"> Date :{{formatDate(todoList.date)}}</span>
         <button @click="suppList(index)">Supprimer</button>
       </li>
     </ul>
@@ -23,7 +25,6 @@
 import { ref } from 'vue'
 
 const listTodo = ref([{title:'', completed: false, date: new Date()}]);
-//const checkList = ref([]);
 const todoLists = ref([]);
 
 const ajoutList = () =>{
@@ -54,6 +55,14 @@ const Completed = (index) => {
 const triTodoList = () => {
   todoLists.value.sort((a, b) => a.completed - b.completed);
   }
+
+  const formatDate = (date) => {
+  return new Date(date).toLocaleDateString("fr-FR", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
+};
 
 </script>
 
